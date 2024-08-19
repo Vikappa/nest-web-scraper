@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { payloadDTO } from 'src/utils/customTypes';
-import { processFileContent } from 'src/utils/functions';
+import { processFileContent } from '../utils/functions';
 
 @Injectable()
 export class ScraperService {
@@ -19,6 +19,7 @@ export class ScraperService {
       //estrae tutti i testi dal body
       const testo = cheerioIstance('body').text();
 
+      //processFileContent è la funzione che ritorna un oggetto con i risultati richiesti
       return processFileContent(testo);
     } catch (error) {
       console.error('Error scraping:', error);
