@@ -5,7 +5,7 @@
   <p align="center">La mia prima Nest web app che legge e analizza i contenuti delle pagine</p>
     <p align="center">
 
-<div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px; gap: 2px;">
+<div align="center" style=" margin-bottom: 20px; gap: 2px;">
   <img src="https://img.shields.io/badge/NestJS-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS" />
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
