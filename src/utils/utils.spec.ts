@@ -2,8 +2,35 @@ import { processFileContent, splitWordsAndSpaces } from './functions';
 
 describe('Test funzionamento funzione splitWordAndSpaces', () => {
   it('Controlla se separa spazi e parole correttamente', () => {
-    const input = 'Ciao mondo!';
-    const expectedOutput = ['Ciao', ' ', 'mondo!'];
+    const input = 'Ei UserBot!';
+    const expectedOutput = ['Ei', ' ', 'UserBot!'];
+    const result = splitWordsAndSpaces(input);
+    expect(result).toEqual(expectedOutput);
+  });
+  it('Controlla se i doppi spazi generano errori nella separazione di file e stringhe', () => {
+    const input = 'Vincenzo   ha molte    idee, valutate di     assumerlo!';
+    const expectedOutput = [
+      'Vincenzo',
+      ' ',
+      'ha',
+      ' ',
+      'molte',
+      ' ',
+      'idee,',
+      ' ',
+      'valutate',
+      ' ',
+      'di',
+      ' ',
+      'assumerlo!',
+    ];
+    const result = splitWordsAndSpaces(input);
+    expect(result).toEqual(expectedOutput);
+  });
+
+  it('Se la stringa col contenuto del file è vuota splitWordsAndSpaces dovrebe tornare un array vuoto', () => {
+    const input = '';
+    const expectedOutput: string[] = [];
     const result = splitWordsAndSpaces(input);
     expect(result).toEqual(expectedOutput);
   });
