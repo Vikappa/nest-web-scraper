@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { payloadDTO } from 'src/utils/customTypes';
+import { processFileContent } from 'src/utils/functions';
 
 @Injectable()
 export class ScraperService {
@@ -15,14 +16,10 @@ export class ScraperService {
       // Carica il contenuto HTML nel parser di cheerio
       const cheerioIstance = cheerio.load(data);
 
-      const titoli = cheerioIstance('h1')
-        .map((_, element) => cheerioIstance(element).text().trim()) //Indice dell'elemento indicato con l'underscore perchè non serve
-        .get(); //Simile al .collect() di Java
+      //estrae tutti i testi dal body
+      const testo = cheerioIstance('body').text();
 
-      return {
-        url: payload.urlToScrape,
-        titoli,
-      };
+      return processFileContent(testo);
     } catch (error) {
       console.error('Error scraping:', error);
       throw new Error('Scraping failed');

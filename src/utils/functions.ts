@@ -10,7 +10,7 @@ export const processFileContent = (data: string): ResponsePayload => {
   let nSpazi: number = 0;
   let nParole: number = 0;
   let nCaratteri: number = 0;
-  const parolePiuUsate: WordScore[] = [];
+  const parolePiuUsate: WordScore[] = []; //Corretto nome variabile :-)
 
   for (const singleWordOrSpace of wordsAndSpaces) {
     if (singleWordOrSpace.trim() === '') {
