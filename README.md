@@ -17,11 +17,23 @@
 
 <p>NestWebScraper è il mio primo progetto Nest Js. Ho realizzato un singolo endpoint che riceve un url di una pagina web da analizzare e risponde con la conta di parole più usate, numero parole totali, ecc</p>
 
+## Installazione
+
+Puoi avviare il progetto usando gli script disponibili nel file `package.json` oppure installando la `Dockerimage` presente nella repo. 
+
+### Installazione tramite docker
+```bash
+$ docker build -t nest-web-scraper .
+$ docker run -p 3000:3000 nest-web-scraper
+```
+
+### Installazione tramite npm
+```bash
+$ nest run build
+$ nest start
+```
+
 ## Uso
-
-<p>Inviare una FETCH POST con payload all'url in cui è hostata la web app con la chiave "urlToScrape"</p>
-
-
 <p>Inviare una FETCH POST con payload all'url in cui è hostata la web app con la chiave "urlToScrape" (puoi usare tool come Postman o Thunder Client) inviando un oggetto con l'url di cui vuoi effettuare lo scraping.</p>
 <p>Esempio</p>
 
@@ -31,23 +43,6 @@
 }
 ```
 <p>Per favore, non usare Url di siti come youtube o altre app con sistemi anti scraping per non mandare K.O. il sistema!</p>
-
-
-### Script disponibili
-
-Puoi avviare il progetto usando gli script disponibili nel file `package.json` oppure installando la `Dockerimage` presente nella repo. 
-
-## Installazione tramite docker
-```bash
-$ docker build -t nest-web-scraper .
-$ docker run -p 3000:3000 nest-web-scraper
-```
-
-## Installazione tramite npm
-```bash
-$ nest run build
-$ nest start
-```
 
 ## Test
 
