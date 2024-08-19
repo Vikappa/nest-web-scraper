@@ -12,7 +12,7 @@ describe('ScraperController', () => {
     controller = module.get<ScraperController>(ScraperController);
   });
 
-  it('should be defined', () => {
+  it('Il modulo esiste', () => {
     expect(controller).toBeDefined();
   });
 });

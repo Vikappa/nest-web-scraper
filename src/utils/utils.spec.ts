@@ -1,4 +1,4 @@
-import { splitWordsAndSpaces } from '../utils/functios';
+import { splitWordsAndSpaces } from './functions';
 
 describe('Test funzionamento funzione splitWordAndSpaces', () => {
   it('Controlla se separa spazi e parole correttamente', () => {
