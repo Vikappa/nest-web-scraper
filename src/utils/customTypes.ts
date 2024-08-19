@@ -10,3 +10,6 @@ export interface ResponsePayload {
   nCaratteri: number;
   parolePiuUsate: WordScore[];
 }
+export interface PlaylistDiVincenzoResponse {
+  playlistDiVincenzo: string[];
+}
