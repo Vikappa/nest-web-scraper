@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { payloadDTO } from 'src/utils/customTypes';
 
 @Injectable()
 export class ScraperService {
-  async scrap(): Promise<any> {
-    return 'Hello World!';
+  async scrap(payload: payloadDTO): Promise<any> {
+    return payload.urlToScrape;
   }
 }
