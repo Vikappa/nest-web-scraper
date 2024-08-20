@@ -27,7 +27,7 @@ Prima di avviare il progetto, assicurati di avere Docker avviato sulla tua macch
 Sostituisci XXXX con la porta che preferisci utilizzare per l'applicazione.
 ```bash
 $ docker build -t nest-web-scraper .
-$ docker run -p 3000:XXXX nest-web-scraper
+$ docker run -p XXXX:3000 nest-web-scraper
 ```
 
 ### Installazione tramite npm
@@ -37,6 +37,13 @@ Questa build necessita di Node.js installato sulla tua macchina.
 ```bash
 $ nest run build
 $ nest start
+```
+
+### Installazione tramite DockerHub
+Con Docker avviato, esegui questi comandi e sostituisci XXXX con la porta che preferisci utilizzare per l'applicazione.
+```bash
+$ docker pull vikappa/nestwebscrapervincenzocostantini
+$ docker run -p XXXX:3000 vikappa/nestwebscrapervincenzocostantini
 ```
 
 ## Uso
