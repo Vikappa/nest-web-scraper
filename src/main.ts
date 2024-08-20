@@ -5,7 +5,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: 'https://spidernest.vercel.app', // Consente solo richieste da questo dominio
+    origin: true,
     methods: 'GET,POST',
     allowedHeaders: 'Content-Type, Authorization',
   });
