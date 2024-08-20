@@ -22,12 +22,18 @@
 Puoi avviare il progetto usando gli script disponibili nel file `package.json` oppure installando la `Dockerimage` presente nella repo. 
 
 ### Installazione tramite docker
+
+Prima di avviare il progetto, assicurati di avere Docker avviato sulla tua macchina.
+
 ```bash
 $ docker build -t nest-web-scraper .
 $ docker run -p 3000:3000 nest-web-scraper
 ```
 
 ### Installazione tramite npm
+
+Questa build necessita di Node.js installato sulla tua macchina.
+
 ```bash
 $ nest run build
 $ nest start
