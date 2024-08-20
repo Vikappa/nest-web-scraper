@@ -24,7 +24,7 @@ Puoi avviare il progetto usando gli script disponibili nel file `package.json` o
 ### Installazione tramite docker
 
 Prima di avviare il progetto, assicurati di avere Docker avviato sulla tua macchina.
-Sostituisci XXXX con la porta che preferisci utilizzare per l'applicazione.
+Sostituisci XXXX con la porta che preferisci utilizzare per l'applicazione. Esegui questi comandi nella cartella della repo scaricata:
 ```bash
 $ docker build -t nest-web-scraper .
 $ docker run -p XXXX:3000 nest-web-scraper
