@@ -12,8 +12,7 @@ describe('ScraperController', () => {
     controller = module.get<ScraperController>(ScraperController);
   });
 
-  it('Il modulo esiste', () => {
+  it('Il modulo scraper esiste ed è definito', () => {
     expect(controller).toBeDefined();
   });
 });
-

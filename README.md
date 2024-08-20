@@ -59,7 +59,7 @@ $ npm test
 
 ## Ester egg:
 
-<p>Se mandi una richiesta GET a localhost:3000 ti risponde con la playlist che ho ascoltato mentre programmavo questo progetto</p>
+<p>Se mandi una richiesta GET a localhost:XXXX ti risponde con la playlist che ho ascoltato mentre programmavo questo progetto. Sostituisci XXXX con la porta in cui hai avviato l'applicazione</p>
 
 ## Stay in touch
 
