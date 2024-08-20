@@ -42,7 +42,7 @@ $ nest start
 ### Installazione tramite DockerHub
 Con Docker avviato, esegui questi comandi e sostituisci XXXX con la porta che preferisci utilizzare per l'applicazione.
 ```bash
-$ docker pull vikappa/nestwebscrapervincenzocostantini
+$ docker pull vikappa/vincenzocostantininestwebscraper
 $ docker run -p XXXX:3000 vikappa/nestwebscrapervincenzocostantini
 ```
 

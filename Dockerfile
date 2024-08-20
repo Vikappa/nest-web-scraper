@@ -1,4 +1,4 @@
-FROM node:18-alpine AS build
+FROM node:18-slim AS build
 
 WORKDIR /app
 COPY package*.json ./
@@ -10,7 +10,7 @@ COPY . .
 RUN npm run test
 RUN npm run build
 
-FROM node:18-alpine AS production
+FROM node:18-slim AS production
 WORKDIR /app
 
 ##Copia solo le dipendenze di produzione
