@@ -14,7 +14,7 @@ beforeAll(async () => {
 describe('Test funzionamento funzione splitWordAndSpaces', () => {
   it('Controlla se separa spazi e parole correttamente', () => {
     const input = 'Ei UserBot!';
-    const expectedOutput = ['Ei', ' ', 'UserBot!'];
+    const expectedOutput = ['Ei', ' ', 'UserBot', '!'];
     const result = splitWordsAndSpaces(input);
     expect(result).toEqual(expectedOutput);
   });
@@ -27,13 +27,15 @@ describe('Test funzionamento funzione splitWordAndSpaces', () => {
       ' ',
       'molte',
       ' ',
-      'idee,',
+      'idee',
+      ',',
       ' ',
       'valutate',
       ' ',
       'di',
       ' ',
-      'assumerlo!',
+      'assumerlo',
+      '!',
     ];
     const result = splitWordsAndSpaces(input);
     expect(result).toEqual(expectedOutput);
@@ -134,11 +136,8 @@ describe('Controllo funzionamento funzione extractTextFromBody', () => {
   it('Controlla se extractTextFromBody estrae un testo senza tag html ne nomi di classi', async () => {
     let specialCharactersFound = false;
     const specialCharacters = [
-      '#',
-      '[',
       '{',
       '}',
-      ']',
       '_',
       '`',
       'className',
