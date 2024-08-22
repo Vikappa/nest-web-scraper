@@ -45,6 +45,28 @@ describe('Test funzionamento funzione splitWordAndSpaces', () => {
     const result = splitWordsAndSpaces(input);
     expect(result).toEqual(expectedOutput);
   });
+
+  it('Divide correttamente parole e parentesi', () => {
+    const input = "Vincenzo ha pensato (un'altra) cosa";
+    const expectedOutput = [
+      'Vincenzo',
+      ' ',
+      'ha',
+      ' ',
+      'pensato',
+      ' ',
+      '(',
+      ' ',
+      "un'",
+      ' ',
+      'altra',
+      ')',
+      ' ',
+      'cosa',
+    ];
+    const result = splitWordsAndSpaces(input);
+    expect(result).toEqual(expectedOutput);
+  });
 });
 
 describe('Test funzionamento metodo processFileContent', () => {
