@@ -93,3 +93,10 @@ describe('Test funzionamento metodo processFileContent', () => {
     );
   });
 });
+
+describe('Controllo mock html', () => {
+  const htmlToBeTested = import('./mockHtml');
+  it('Controlla se il mock html esiste ed è esportabile', () => {
+    expect(htmlToBeTested).toBeDefined();
+  });
+});
