@@ -1,4 +1,4 @@
-import { AnchorsAnalys, TextAnalysis } from './customTypes';
+import { AnchorsAnalys, mediaCollection, TextAnalysis } from './customTypes';
 import { WordScore } from './WordScore';
 import * as cheerio from 'cheerio';
 
@@ -101,22 +101,49 @@ export const extractTextFromBody = async (data: string): Promise<string> => {
 };
 
 export const processAnchors = async (data: string): Promise<AnchorsAnalys> => {
-  const nLink: number = 0;
-  const nLinkInterni: number = 0;
-  const nLinkEsterni: number = 0;
-  const elencoLink: WordScore[] = [];
+  const elencoLinkEsterni: WordScore[] = [];
+  const elencoLinkInterni: WordScore[] = [];
   const cheerioIstance = cheerio.load(data);
-  const links = cheerioIstance('a');
+  const links: string[] = [];
+
+  cheerioIstance('a').each((_, element) => {
+    const href = cheerioIstance(element).attr('href');
+    if (href) {
+      links.push(href);
+    }
+  });
+
   for (const link of links) {
-    const href = link.attribs.href;
-    const existing = elencoLink.find(
-      (linkAnalysed) => linkAnalysed.getWord() === href,
-    );
-    if (existing) {
-      existing.increaseScore();
+    if (link.startsWith(`http`)) {
+      const existing = elencoLinkEsterni.find(
+        (linkAnalysed) => linkAnalysed.getWord() === link,
+      );
+      if (existing) {
+        existing.increaseScore();
+      } else {
+        elencoLinkEsterni.push(new WordScore(link, 1));
+      }
     } else {
-      elencoLink.push(new WordScore(href, 1));
+      const existing = elencoLinkInterni.find(
+        (linkAnalysed) => linkAnalysed.getWord() === link,
+      );
+      if (existing) {
+        existing.increaseScore();
+      } else {
+        elencoLinkInterni.push(new WordScore(link, 1));
+      }
     }
   }
-  return { nLink, nLinkInterni, nLinkEsterni, elencoLink };
+  return { elencoLinkEsterni, elencoLinkInterni };
+};
+
+export const collectMedia = async (data: string): Promise<mediaCollection> => {
+  const cheerioIstance = cheerio.load(data);
+  const images = cheerioIstance('img');
+  const imagesUrls = images
+    .map((index, element) => {
+      return cheerioIstance(element).attr('src');
+    })
+    .get();
+  return { images: imagesUrls };
 };

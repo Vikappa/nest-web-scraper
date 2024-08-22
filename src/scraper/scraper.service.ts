@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { payloadDTO, ResponsePayload } from 'src/utils/customTypes';
 import {
+  collectMedia,
   extractTextFromBody,
   processAnchors,
   processFileContent,
@@ -19,10 +20,11 @@ export class ScraperService {
       const testo = extractTextFromBody(data);
       const analisiParole = processFileContent(await testo);
       const analisiAncora = await processAnchors(data);
-
+      const collectedMedia = await collectMedia(data);
       const response: ResponsePayload = {
         analisiParole,
         analisiLink: analisiAncora,
+        media: collectedMedia,
       };
       return response;
     } catch (error) {

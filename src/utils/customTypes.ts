@@ -5,10 +5,8 @@ export interface payloadDTO {
 }
 
 export interface AnchorsAnalys {
-  nLink: number;
-  nLinkInterni: number;
-  nLinkEsterni: number;
-  elencoLink: WordScore[];
+  elencoLinkInterni: WordScore[];
+  elencoLinkEsterni: WordScore[];
 }
 
 export interface TextAnalysis {
@@ -20,9 +18,14 @@ export interface TextAnalysis {
   parolePiuUsate: WordScore[];
 }
 
+export interface mediaCollection {
+  images: string[];
+}
+
 export interface ResponsePayload {
   analisiParole: TextAnalysis;
   analisiLink: AnchorsAnalys;
+  media: mediaCollection;
 }
 
 export interface PlaylistDiVincenzoResponse {
