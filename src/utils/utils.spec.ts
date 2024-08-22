@@ -56,14 +56,13 @@ describe('Test funzionamento funzione splitWordAndSpaces', () => {
       'pensato',
       ' ',
       '(',
-      ' ',
       "un'",
-      ' ',
       'altra',
       ')',
       ' ',
       'cosa',
     ];
+
     const result = splitWordsAndSpaces(input);
     expect(result).toEqual(expectedOutput);
   });

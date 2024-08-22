@@ -2,7 +2,7 @@ import { ResponsePayload } from './customTypes';
 import { WordScore } from './WordScore';
 import * as cheerio from 'cheerio';
 
-const REGEX = /\S+|\s+/g;
+const REGEX = /([^\s\(\)']+)'?|\s+|[()]/g;
 
 // Calcola i risultati richiesti nella consegna
 export const processFileContent = (data: string): ResponsePayload => {
