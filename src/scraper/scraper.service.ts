@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { payloadDTO } from 'src/utils/customTypes';
-import { extractTextFromBody, processFileContent } from '../utils/functions';
+import { payloadDTO, ResponsePayload } from 'src/utils/customTypes';
+import {
+  extractTextFromBody,
+  processAnchors,
+  processFileContent,
+} from '../utils/functions';
 
 @Injectable()
 export class ScraperService {
-  async scrap(payload: payloadDTO): Promise<any> {
+  async scrap(payload: payloadDTO): Promise<ResponsePayload> {
     try {
       // Fai una richiesta GET alla URL specificata
       const { data } = await axios.get(payload.urlToScrape);
@@ -13,9 +17,14 @@ export class ScraperService {
 
       // Prende come input il payload della fetch e ritorna una stringa con il testo da analizzare
       const testo = extractTextFromBody(data);
+      const analisiParole = processFileContent(await testo);
+      const analisiAncora = await processAnchors(data);
 
-      //processFileContent è la funzione che ritorna un oggetto con i risultati richiesti
-      return processFileContent(await testo); //Prende come input una lunga stringa e ritorna un oggetto con i risultati richiesti
+      const response: ResponsePayload = {
+        analisiParole,
+        analisiLink: analisiAncora,
+      };
+      return response;
     } catch (error) {
       console.error('Error scraping:', error);
       throw new Error('Scraping failed');
