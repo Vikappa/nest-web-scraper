@@ -2,6 +2,9 @@ export const mockHtml: string = `<!DOCTYPE html>
 <html class="client-nojs" lang="it" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="Mockup page">
+<meta property="og:description" content="Mockup page description">
 <title>Mockup page</title>
 
 </head>

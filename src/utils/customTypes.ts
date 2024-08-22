@@ -4,6 +4,13 @@ export interface payloadDTO {
   urlToScrape: string;
 }
 
+export interface metadata {
+  icon: string;
+  title: string;
+  description: string;
+  preveiwImage: string;
+}
+
 export interface AnchorsAnalys {
   elencoLinkInterni: WordScore[];
   elencoLinkEsterni: WordScore[];
@@ -26,6 +33,7 @@ export interface ResponsePayload {
   analisiParole: TextAnalysis;
   analisiLink: AnchorsAnalys;
   media: mediaCollection;
+  metadata: metadata;
 }
 
 export interface PlaylistDiVincenzoResponse {

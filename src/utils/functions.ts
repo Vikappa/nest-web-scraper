@@ -1,4 +1,9 @@
-import { AnchorsAnalys, mediaCollection, TextAnalysis } from './customTypes';
+import {
+  AnchorsAnalys,
+  metadata,
+  mediaCollection,
+  TextAnalysis,
+} from './customTypes';
 import { WordScore } from './WordScore';
 import * as cheerio from 'cheerio';
 
@@ -146,4 +151,17 @@ export const collectMedia = async (data: string): Promise<mediaCollection> => {
     })
     .get();
   return { images: imagesUrls };
+};
+
+export const getMetadata = async (data: string): Promise<metadata> => {
+  const cheerioIstance = cheerio.load(data);
+  const icon = cheerioIstance('link[rel="icon"]').attr('href');
+  const title = cheerioIstance('title').text();
+  const description = cheerioIstance('meta[name="description"]').attr(
+    'content',
+  );
+  const preveiwImage = cheerioIstance('meta[property="og:image"]').attr(
+    'content',
+  );
+  return { icon, title, description, preveiwImage };
 };
