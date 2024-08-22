@@ -85,11 +85,17 @@ export const extractTextFromBody = async (data: string): Promise<string> => {
   // Seleziona il contenuto di specifici tag invece di prendere l'intero body
   const titles = cheerioIstance('h1, h2, h3, h4, h5, h6');
   const texts = cheerioIstance('p, li, span, a');
-  const imageDescriptions = cheerioIstance('img').find('alt');
+  let imageDescriptions = '';
+  cheerioIstance('img').each((index, element) => {
+    const altText = cheerioIstance(element).attr('alt');
+    if (altText) {
+      imageDescriptions += altText;
+    }
+  });
   //console.log('titles', titles.text());
   // console.log('texts', texts.text());
-  // console.log('imageDescriptions', imageDescriptions.text());
-  const text = titles.text() + texts.text() + imageDescriptions.text();
+  // console.log('imageDescriptions', imageDescriptions);
+  const text = titles.text() + texts.text() + imageDescriptions;
 
   return text;
 };
