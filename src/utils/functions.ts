@@ -2,7 +2,7 @@ import { ResponsePayload } from './customTypes';
 import { WordScore } from './WordScore';
 import * as cheerio from 'cheerio';
 
-const REGEX = /([^\s\(\)']+)'?|\s+|[()]/g;
+const REGEX = /\w+['’]?\w*[.,!?]?|\s+|[.,!?()]/g;
 
 // Calcola i risultati richiesti nella consegna
 export const processFileContent = (data: string): ResponsePayload => {
@@ -39,10 +39,17 @@ export const processFileContent = (data: string): ResponsePayload => {
 
 // Metodo che usa le regex per filtrare il contenuto del file e trasforma gli spazi lunghi in spazi di un solo carattere
 export const splitWordsAndSpaces = (data: string): string[] => {
-  return (data.match(REGEX) || []).map((part: string) => {
+  return (data.match(REGEX) || []).flatMap((part: string) => {
     if (/\s+/.test(part)) {
       return ' ';
     }
+
+    // Gestire la separazione delle parole unite da apostrofi
+    if (part.includes("'") || part.includes("’")) {
+      const splitParts = part.split(/(?<=['’])/); // separa dopo l'apostrofo
+      return splitParts;
+    }
+
     return part;
   });
 };
@@ -54,8 +61,11 @@ export const extractTextFromBody = async (data: any): Promise<string> => {
 
   // Seleziona il contenuto di specifici tag invece di prendere l'intero body
   const titles = cheerioIstance('h1, h2, h3, h4, h5, h6');
-  const texts = cheerioIstance('p, li, span, div, a');
+  const texts = cheerioIstance('p, li, span, a');
   const imageDescriptions = cheerioIstance('img').find('alt');
+  console.log('titles', titles.text());
+  // console.log('texts', texts.text());
+  // console.log('imageDescriptions', imageDescriptions.text());
   const text = titles.text() + texts.text() + imageDescriptions.text();
 
   return text;
