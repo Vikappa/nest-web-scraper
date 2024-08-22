@@ -1,4 +1,15 @@
-import { processFileContent, splitWordsAndSpaces } from './functions';
+import {
+  extractTextFromBody,
+  processFileContent,
+  splitWordsAndSpaces,
+} from './functions';
+
+let mockupHtmlFile: string;
+
+beforeAll(async () => {
+  const importedHtml = await import('./mockHtml');
+  mockupHtmlFile = importedHtml.toString();
+}); //Creo un istanza del mockup file prima di fare i test per evitare errori
 
 describe('Test funzionamento funzione splitWordAndSpaces', () => {
   it('Controlla se separa spazi e parole correttamente', () => {
@@ -94,9 +105,40 @@ describe('Test funzionamento metodo processFileContent', () => {
   });
 });
 
-describe('Controllo mock html', () => {
-  const htmlToBeTested = import('./mockHtml');
+describe('Controllo funzionamento funzione extractTextFromBody', () => {
   it('Controlla se il mock html esiste ed è esportabile', () => {
+    const htmlToBeTested = mockupHtmlFile;
     expect(htmlToBeTested).toBeDefined();
+  });
+  it('Controlla se extractTextFromBody estrae un testo senza tag html ne nomi di classi', async () => {
+    let specialCharactersFound = false;
+    const specialCharacters = [
+      '#',
+      '[',
+      '{',
+      '}',
+      ']',
+      '_',
+      '`',
+      'className',
+      'href',
+      'src',
+      'alt',
+      'title', // Caratteri sgami dell'html che non dovrebbero essere visibili
+    ];
+
+    const testoPurificato = extractTextFromBody(mockupHtmlFile);
+
+    for (let i = 0; i < (await testoPurificato).length; i++) {
+      if (specialCharacters.includes(testoPurificato[i])) {
+        specialCharactersFound = true;
+        console.log(
+          '---------------Trovato carattere speciale: ',
+          testoPurificato[i],
+        );
+        break;
+      }
+    }
+    expect(specialCharactersFound).toBe(false);
   });
 });

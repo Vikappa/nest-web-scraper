@@ -1,4 +1,4 @@
-export const mockHtml = `<!DOCTYPE html>
+export const mockHtml: string = `<!DOCTYPE html>
 <html class="client-nojs" lang="it" dir="ltr">
 <head>
 <meta charset="UTF-8">
@@ -1065,5 +1065,4 @@ Transclusion expansion time report (%,ms,calls,template)
 <script>(RLQ=window.RLQ||[]).push(function(){mw.log.warn("This page is using the deprecated ResourceLoader module \"codex-search-styles\".\n[1.43] Use a CodexModule with codexComponents to set your specific components used: https://www.mediawiki.org/wiki/Codex#Using_a_limited_subset_of_components");mw.config.set({"wgHostname":"mw-web.eqiad.main-56f9f7b4c5-7gdlt","wgBackendResponseTime":2084,"wgPageParseReport":{"limitreport":{"cputime":"1.422","walltime":"1.894","ppvisitednodes":{"value":12408,"limit":1000000},"postexpandincludesize":{"value":130018,"limit":2097152},"templateargumentsize":{"value":9325,"limit":2097152},"expansiondepth":{"value":15,"limit":100},"expensivefunctioncount":{"value":11,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":82823,"limit":5000000},"entityaccesscount":{"value":39,"limit":400},"timingprofile":["100.00% 1602.390      1 -total"," 32.30%  517.552      1 Template:Collegamenti_esterni"," 15.99%  256.249      1 Template:Videogioco"," 13.59%  217.730     64 Template:Cita_web","  8.01%  128.400     21 Template:Valutazioni_videogioco/riga","  7.68%  123.036      1 Template:Infobox","  5.54%   88.712      1 Template:Portale","  4.14%   66.414      4 Template:Icona_argomento","  3.71%   59.385      1 Template:Vedi_anche","  2.73%   43.764     13 Template:Cita_news"]},"scribunto":{"limitreport-timeusage":{"value":"0.948","limit":"10.000"},"limitreport-memusage":{"value":10077779,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-56f9f7b4c5-7gdlt","timestamp":"20240819122154","ttl":2592000,"transientcontent":false}}});});</script>
 <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Article","name":"Cyberpunk 2077","url":"https:\/\/it.wikipedia.org\/wiki\/Cyberpunk_2077","sameAs":"http:\/\/www.wikidata.org\/entity\/Q3182559","mainEntity":"http:\/\/www.wikidata.org\/entity\/Q3182559","author":{"@type":"Organization","name":"Contributori ai progetti Wikimedia"},"publisher":{"@type":"Organization","name":"Wikimedia Foundation, Inc.","logo":{"@type":"ImageObject","url":"https:\/\/www.wikimedia.org\/static\/images\/wmf-hor-googpub.png"}},"datePublished":"2018-04-27T08:04:20Z","dateModified":"2024-07-30T21:08:12Z","headline":"videogioco del 2020"}</script>
 </body>
-</html>`
-
+</html>`;

@@ -1,5 +1,6 @@
 import { ResponsePayload } from './customTypes';
 import { WordScore } from './WordScore';
+import * as cheerio from 'cheerio';
 
 const REGEX = /\S+|\s+/g;
 
@@ -44,4 +45,18 @@ export const splitWordsAndSpaces = (data: string): string[] => {
     }
     return part;
   });
+};
+
+//Funzione che usa Cheerio per estrarre il testo dal body
+export const extractTextFromBody = async (data: any): Promise<string> => {
+  // Carica il contenuto HTML nel parser di cheerio
+  const cheerioIstance = cheerio.load(data);
+
+  // Seleziona il contenuto di specifici tag invece di prendere l'intero body
+  const titles = cheerioIstance('h1, h2, h3, h4, h5, h6');
+  const texts = cheerioIstance('p, li, span, div, a');
+  const imageDescriptions = cheerioIstance('img').find('alt');
+  const text = titles.text() + texts.text() + imageDescriptions.text();
+
+  return text;
 };

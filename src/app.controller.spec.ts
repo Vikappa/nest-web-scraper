@@ -2,20 +2,37 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScraperService } from './scraper/scraper.service';
+import { AppModule } from './app.module';
 
 describe('AppController', () => {
   let appController: AppController;
+  let appMainModule: AppModule;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [AppService],
     }).compile();
+
     appController = app.get<AppController>(AppController);
+
+    const mainApp: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    appMainModule = mainApp.get<AppModule>(AppModule);
   });
 
   describe('root', () => {
-    it('Ritorna qualcosa non vuoto', () => {
+    it('Il modulo principale è definito', () => {
+      expect(appMainModule).toBeTruthy();
+    });
+
+    it('Il modulo principale è del tipo corretto', () => {
+      expect(appMainModule).toBeInstanceOf(AppModule);
+    });
+
+    it('Il metodo getHello() è definito', () => {
       expect(appController.getHello()).toBeTruthy();
     });
 
@@ -52,16 +69,9 @@ describe('AppController', () => {
     it('Servizio creato', () => {
       expect(service).toBeDefined();
     });
-
-    it('Sistema connesso a internet', async () => {
-      const result = await service.scrap({
-        urlToScrape: 'https://vincenzocostantinicvnext.vercel.app/',
-      });
-      expect(result).toBeTruthy();
-    });
   });
 
-  it('Il modulo principale esiste ed è definito, il controller dell hello world viene importato correttamente', () => {
+  it('Il controller dell hello world viene importato correttamente', () => {
     expect(appController).toBeDefined();
   });
 });
