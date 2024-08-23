@@ -15,8 +15,8 @@ import {
 } from '../utils/functions';
 import { FourZeroFourException } from '../security/FourZeroFourException';
 import { CannotProcessFileError } from '../security/CannotProcessFileError';
-import { AccesDeniedException } from 'src/security/AccesDeniedException';
-import { EmptyPayload } from 'src/security/EmptyPayload';
+import { AccesDeniedException } from '../security/AccesDeniedException';
+import { EmptyPayload } from '../security/EmptyPayload';
 
 @Injectable()
 export class ScraperService {

@@ -157,7 +157,11 @@ export const getMetadata = async (
     baseUrl = new URL(url).origin;
   }
 
-  const icon = baseUrl + cheerioIstance('link[rel="icon"]').attr('href');
+  let icon = cheerioIstance('link[rel="icon"]').attr('href');
+
+  if (!icon.startsWith('http')) {
+    icon = baseUrl + cheerioIstance('link[rel="icon"]').attr('href');
+  }
 
   return { icon, title, description, preveiwImage, baseUrl };
 };
