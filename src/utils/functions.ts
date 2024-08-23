@@ -1,9 +1,4 @@
-import {
-  AnchorsAnalys,
-  metadata,
-  mediaCollection,
-  TextAnalysis,
-} from './customTypes';
+import { AnchorsAnalys, metadata, TextAnalysis } from './customTypes';
 import { WordScore } from './WordScore';
 import * as cheerio from 'cheerio';
 
@@ -140,17 +135,6 @@ export const processAnchors = async (data: string): Promise<AnchorsAnalys> => {
     }
   }
   return { elencoLinkEsterni, elencoLinkInterni };
-};
-
-export const collectMedia = async (data: string): Promise<mediaCollection> => {
-  const cheerioIstance = cheerio.load(data);
-  const images = cheerioIstance('img');
-  const imagesUrls = images
-    .map((index, element) => {
-      return cheerioIstance(element).attr('src');
-    })
-    .get();
-  return { images: imagesUrls };
 };
 
 export const getMetadata = async (

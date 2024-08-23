@@ -33,7 +33,6 @@ export interface mediaCollection {
 export interface ResponsePayload {
   analisiParole: TextAnalysis;
   analisiLink: AnchorsAnalys;
-  media: mediaCollection;
   metadata: metadata;
 }
 
