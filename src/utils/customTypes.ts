@@ -9,6 +9,7 @@ export interface metadata {
   title: string;
   description: string;
   preveiwImage: string;
+  baseUrl: string;
 }
 
 export interface AnchorsAnalys {

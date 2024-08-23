@@ -153,9 +153,11 @@ export const collectMedia = async (data: string): Promise<mediaCollection> => {
   return { images: imagesUrls };
 };
 
-export const getMetadata = async (data: string): Promise<metadata> => {
+export const getMetadata = async (
+  data: string,
+  url: string,
+): Promise<metadata> => {
   const cheerioIstance = cheerio.load(data);
-  const icon = cheerioIstance('link[rel="icon"]').attr('href');
   const title = cheerioIstance('title').text();
   const description = cheerioIstance('meta[name="description"]').attr(
     'content',
@@ -163,5 +165,15 @@ export const getMetadata = async (data: string): Promise<metadata> => {
   const preveiwImage = cheerioIstance('meta[property="og:image"]').attr(
     'content',
   );
-  return { icon, title, description, preveiwImage };
+
+  let baseUrl = cheerioIstance('base').attr('href');
+
+  // Fallback all'URL di origine se <base> non è presente
+  if (!baseUrl) {
+    baseUrl = new URL(url).origin;
+  }
+
+  const icon = baseUrl + cheerioIstance('link[rel="icon"]').attr('href');
+
+  return { icon, title, description, preveiwImage, baseUrl };
 };

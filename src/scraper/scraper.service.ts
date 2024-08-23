@@ -22,7 +22,7 @@ export class ScraperService {
       const analisiParole = processFileContent(await testo);
       const analisiAncora = await processAnchors(data);
       const collectedMedia = await collectMedia(data);
-      const metadata = await getMetadata(data);
+      const metadata = await getMetadata(data, payload.urlToScrape);
       const response: ResponsePayload = {
         analisiParole,
         analisiLink: analisiAncora,
