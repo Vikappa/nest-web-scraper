@@ -7,7 +7,7 @@ import {
   processFileContent,
   getMetadata,
 } from '../utils/functions';
-import { FourZeroFourException } from 'src/security/FourZeroFourException';
+import { FourZeroFourException } from '../security/FourZeroFourException';
 
 @Injectable()
 export class ScraperService {
