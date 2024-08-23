@@ -12,13 +12,14 @@ import {
   processAnchors,
   processFileContent,
   getMetadata,
+  checkUrlMalformed,
 } from '../utils/functions';
 import { FourZeroFourException } from '../security/FourZeroFourException';
 import { CannotProcessFileError } from '../security/CannotProcessFileError';
 import { AccesDeniedException } from '../security/AccesDeniedException';
 import { EmptyPayloadException } from '../security/EmptyPayloadException';
-import { RequestPageTiltedError } from 'src/security/RequestPageTiltedError';
-import { MalformedUrlException } from 'src/security/MalformedUrlException';
+import { RequestPageTiltedError } from '../security/RequestPageTiltedError';
+import { MalformedUrlException } from '../security/MalformedUrlException';
 
 @Injectable()
 export class ScraperService {
@@ -28,16 +29,8 @@ export class ScraperService {
       throw new EmptyPayloadException();
     }
 
-    if (
-      // Lancia un errore se l'Url non inizia con http o https e non finisce con .letteralettera o .letteraletteralettera
-      !(
-        payload.urlToScrape.startsWith('http://') ||
-        payload.urlToScrape.startsWith('https://')
-      ) ||
-      !/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}$/.test(
-        new URL(payload.urlToScrape).hostname,
-      )
-    ) {
+    // Lancia un errore se l'Url non inizia con http o https e non finisce con .letteralettera o .letteraletteralettera
+    if (checkUrlMalformed(payload.urlToScrape)) {
       throw new MalformedUrlException(payload.urlToScrape);
     }
 

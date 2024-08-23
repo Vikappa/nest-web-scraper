@@ -165,3 +165,14 @@ export const getMetadata = async (
 
   return { icon, title, description, preveiwImage, baseUrl };
 };
+
+export const checkUrlMalformed = (url: string): boolean => {
+  if (
+    !(url.startsWith('http://') || url.startsWith('https://')) ||
+    !/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}$/.test(new URL(url).hostname)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};

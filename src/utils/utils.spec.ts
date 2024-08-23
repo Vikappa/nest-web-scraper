@@ -1,4 +1,5 @@
 import {
+  checkUrlMalformed,
   extractTextFromBody,
   processFileContent,
   splitWordsAndSpaces,
@@ -152,13 +153,42 @@ describe('Controllo funzionamento funzione extractTextFromBody', () => {
     for (let i = 0; i < (await testoPurificato).length; i++) {
       if (specialCharacters.includes(testoPurificato[i])) {
         specialCharactersFound = true;
-        console.log(
-          '---------------Trovato carattere speciale: ',
-          testoPurificato[i],
-        );
+        console.log(testoPurificato[i]);
         break;
       }
     }
     expect(specialCharactersFound).toBe(false);
+  });
+});
+
+describe('Controlla che l url sia correttamente gestito in caso di errore', () => {
+  const malformedUrl = 'Vincenzo://non-si.arrende';
+  const malformedUrl2 = 'http://non-si.arrende';
+  const malformedUrl3 = 'https://non-si.arrende';
+  const malformedUrl4 = 'http://non-si.arrende';
+  const malformedUrl5 = '';
+  const malformedUrl6 = 'Vincenzo-dovrebbe-fare-piu-sport';
+  const corretUrl1 = 'http://Vincenzo-non-si.arrende.it';
+  const corretUrl2 = 'http://Vincenz-non-si.arrend.net';
+  it('Controlla che gli url che finiscono diversamente da .it .com .net .ru .us vengano riconosciuti come malformed', () => {
+    expect(checkUrlMalformed(malformedUrl)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl2)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl3)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl4)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl5)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl6)).toBe(true);
+    expect(checkUrlMalformed(corretUrl1)).toBe(false);
+    expect(checkUrlMalformed(corretUrl2)).toBe(false);
+  });
+
+  it('Controlla che gli url che finiscono diversamente da http o https vengano riconosciuti come malformed', () => {
+    expect(checkUrlMalformed(malformedUrl)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl2)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl3)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl4)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl5)).toBe(true);
+    expect(checkUrlMalformed(malformedUrl6)).toBe(true);
+    expect(checkUrlMalformed(corretUrl1)).toBe(false);
+    expect(checkUrlMalformed(corretUrl2)).toBe(false);
   });
 });
