@@ -16,21 +16,38 @@ import {
 import { FourZeroFourException } from '../security/FourZeroFourException';
 import { CannotProcessFileError } from '../security/CannotProcessFileError';
 import { AccesDeniedException } from '../security/AccesDeniedException';
-import { EmptyPayload } from '../security/EmptyPayload';
+import { EmptyPayloadException } from '../security/EmptyPayloadException';
 import { RequestPageTiltedError } from 'src/security/RequestPageTiltedError';
+import { MalformedUrlException } from 'src/security/MalformedUrlException';
 
 @Injectable()
 export class ScraperService {
   async scrap(payload: payloadDTO): Promise<ResponsePayload> {
     let rispostaFetchAxios: AxiosResponse<string, payloadDTO> | undefined;
     if (payload.urlToScrape === '') {
-      throw new EmptyPayload();
+      throw new EmptyPayloadException();
     }
+
+    if (
+      // Lancia un errore se l'Url non inizia con http o https e non finisce con .letteralettera o .letteraletteralettera
+      !(
+        payload.urlToScrape.startsWith('http://') ||
+        payload.urlToScrape.startsWith('https://')
+      ) ||
+      !/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}$/.test(
+        new URL(payload.urlToScrape).hostname,
+      )
+    ) {
+      throw new MalformedUrlException(payload.urlToScrape);
+    }
+
     try {
       // Fai una richiesta GET alla URL specificata
       rispostaFetchAxios = await axios.get(payload.urlToScrape);
       // L'oggetto rispostaFetchAxios contiene il contenuto HTML della pagina <contenuto pagina aka html stringato, payloadrichiesta>
     } catch (error) {
+      console.log(error);
+
       if (error.response.status === 404) {
         throw new FourZeroFourException(payload.urlToScrape);
       }
@@ -50,7 +67,6 @@ export class ScraperService {
       ) {
         throw new AccesDeniedException(payload.urlToScrape);
       }
-      console.log(error);
     }
 
     let testo = '';
