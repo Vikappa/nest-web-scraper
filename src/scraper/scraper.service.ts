@@ -17,6 +17,7 @@ import { FourZeroFourException } from '../security/FourZeroFourException';
 import { CannotProcessFileError } from '../security/CannotProcessFileError';
 import { AccesDeniedException } from '../security/AccesDeniedException';
 import { EmptyPayload } from '../security/EmptyPayload';
+import { RequestPageTiltedError } from 'src/security/RequestPageTiltedError';
 
 @Injectable()
 export class ScraperService {
@@ -36,6 +37,10 @@ export class ScraperService {
 
       if (error.response.status === 473) {
         throw new PayloadTooLargeException(payload.urlToScrape);
+      }
+
+      if (error.response.status === 500) {
+        throw new RequestPageTiltedError(payload.urlToScrape);
       }
 
       if (
