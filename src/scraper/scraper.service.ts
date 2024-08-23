@@ -46,7 +46,9 @@ export class ScraperService {
       rispostaFetchAxios = await axios.get(payload.urlToScrape);
       // L'oggetto rispostaFetchAxios contiene il contenuto HTML della pagina <contenuto pagina aka html stringato, payloadrichiesta>
     } catch (error) {
-      console.log(error);
+      if (error.code === `ENOTFOUND`) {
+        throw new MalformedUrlException(payload.urlToScrape);
+      }
 
       if (error.response.status === 404) {
         throw new FourZeroFourException(payload.urlToScrape);
