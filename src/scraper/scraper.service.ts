@@ -15,26 +15,27 @@ import {
 } from '../utils/functions';
 import { FourZeroFourException } from '../security/FourZeroFourException';
 import { CannotProcessFileError } from '../security/CannotProcessFileError';
-import { AccesDeniedException } from '../security/AccesDeniedException';
-import { EmptyPayload } from '../security/EmptyPayload';
+import { AccesDeniedException } from 'src/security/AccesDeniedException';
+import { LoggingService } from '../logging/logging.service';
 
 @Injectable()
 export class ScraperService {
+  constructor(private readonly loggingService: LoggingService) {} // Inietta il servizio di logging
+
   async scrap(payload: payloadDTO): Promise<ResponsePayload> {
     let rispostaFetchAxios: AxiosResponse<string, payloadDTO> | undefined;
-    if (payload.urlToScrape === '') {
-      throw new EmptyPayload();
-    }
+    this.loggingService.logRequest(payload.urlToScrape, payload);
+
     try {
-      // Fai una richiesta GET alla URL specificata
       rispostaFetchAxios = await axios.get(payload.urlToScrape);
-      // L'oggetto rispostaFetchAxios contiene il contenuto HTML della pagina <contenuto pagina aka html stringato, payloadrichiesta>
     } catch (error) {
       if (error.response.status === 404) {
+        this.loggingService.logError(payload.urlToScrape, error);
         throw new FourZeroFourException(payload.urlToScrape);
       }
 
       if (error.response.status === 473) {
+        this.loggingService.logError(payload.urlToScrape, error);
         throw new PayloadTooLargeException(payload.urlToScrape);
       }
 
@@ -43,6 +44,7 @@ export class ScraperService {
         error.response.status === 403 ||
         error.response.status === 999
       ) {
+        this.loggingService.logError(payload.urlToScrape, error);
         throw new AccesDeniedException(payload.urlToScrape);
       }
       console.log(error);
@@ -56,6 +58,7 @@ export class ScraperService {
     try {
       testo = await extractTextFromBody(rispostaFetchAxios.data);
     } catch (error) {
+      this.loggingService.logError(payload.urlToScrape, error);
       throw new CannotProcessFileError(payload.urlToScrape);
     } finally {
       analisiParole = processFileContent(testo);
@@ -69,6 +72,8 @@ export class ScraperService {
         analisiLink: analisiAncora,
         metadata: metadata,
       };
+
+      this.loggingService.logResponse(payload.urlToScrape, response);
       return response;
     }
   }
